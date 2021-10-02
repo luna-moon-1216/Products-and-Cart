@@ -2,7 +2,7 @@ const models = require('../models');
 
 module.exports = {
   getAll: function (req, res) {
-    // console.log(req.query)
+    console.log(req.query)
     const param = req.query;
     models.products.getAll(param, (err, data) => {
       if (err) {
