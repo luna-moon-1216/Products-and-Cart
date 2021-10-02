@@ -15,8 +15,7 @@ app.use(express.static(__dirname + "/../dist"));
 app.use(morgan("dev"));
 
 
-const port = 3001;
+module.exports = app;
 
-app.listen(port, function () {
-  console.log(`Moving and groving on port ${port}`);
-});
+
+
