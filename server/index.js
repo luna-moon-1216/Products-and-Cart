@@ -7,8 +7,8 @@ let app = express();
 
 var router = require('./routes.js');
 
-app.use(express.json()); //need to put before the router middleware to make it work
-app.use('/catwalk', router); //placeholder
+app.use(express.json());
+app.use('/catwalk', router);
 
 app.use(express.static(__dirname + "/../dist"));
 
