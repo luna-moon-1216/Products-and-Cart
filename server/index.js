@@ -1,7 +1,6 @@
 const express = require("express");
 const axios = require("axios");
 const morgan = require("morgan");
-const { TOKEN } = require("../config.js");
 
 let app = express();
 
