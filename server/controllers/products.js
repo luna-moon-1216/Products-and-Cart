@@ -2,7 +2,7 @@ const models = require('../models');
 
 module.exports = {
   getAll: function (req, res) {
-    console.log(req.query)
+    // console.log(req.query)
     const param = req.query;
     models.products.getAll(param, (err, data) => {
       if (err) {
@@ -18,7 +18,7 @@ module.exports = {
     const param = req.params;
     models.products.getOne(param, (err, data) => {
       if (err) {
-        res.send(err);
+        res.status(400).send(err);
       } else {
         res.send(data);
       }
@@ -29,7 +29,7 @@ module.exports = {
     const param = req.params;
     models.products.getStyles(param, (err, data) => {
       if (err) {
-        res.send(err);
+        res.status(400).send(err);
       } else {
         res.send(data);
       }
