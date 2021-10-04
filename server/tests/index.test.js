@@ -1,7 +1,5 @@
 const request = require('supertest');
 const app = require('../index.js');
-const { Pool } = require('pg');
-const { dbConfig } = require('../database/products/config.js');
 const db = require('../database/products/index.js');
 
 afterAll((done) => {
