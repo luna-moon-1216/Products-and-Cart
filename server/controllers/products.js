@@ -41,7 +41,7 @@ module.exports = {
     const param = req.params;
     models.products.getRelated(param, (err, data) => {
       if (err) {
-        res.send(err);
+        res.status(400).send(err);
       } else {
         res.send(data);
       }
@@ -53,7 +53,7 @@ module.exports = {
     const param = req.headers.user_session;
     models.products.getCart(param, (err, data) => {
       if (err) {
-        res.send(err);
+        res.status(400).send(err);
       } else {
         res.send(data);
       }
@@ -69,7 +69,7 @@ module.exports = {
     };
     models.products.postCart(param, (err, result) => {
       if (err) {
-        res.send(err);
+        res.status(400).send(err);
       } else {
         res.send(param);
       }

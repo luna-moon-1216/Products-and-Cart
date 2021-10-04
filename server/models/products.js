@@ -113,7 +113,7 @@ module.exports = {
       if (err) {
         callback(err, null);
       } else {
-        console.log(res.rows[0].array);
+        // console.log(res.rows[0].array);
         callback(null, res.rows[0].array);
       }
     });
