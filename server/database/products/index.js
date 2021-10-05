@@ -3,8 +3,8 @@ const { dbConfig } = require('./config.js');
 
 const pool = new Pool({
   user: 'ubuntu',
-  host: '3.84.145.8',
-  max: 100,
+  host: 'ec2-3-84-145-8.compute-1.amazonaws.com',
+  // max: 100,
   database: 'sdc_products',
   password: dbConfig.password,
   port: process.env.PORT || 5432
