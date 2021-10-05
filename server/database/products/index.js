@@ -2,10 +2,10 @@ const { Pool } = require('pg');
 const { dbConfig } = require('./config.js');
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
+  user: 'ubuntu',
+  host: '3.84.145.8',
   max: 100,
-  database: 'SDC_Products',
+  database: 'sdc_products',
   password: dbConfig.password,
   port: process.env.PORT || 5432
 });
