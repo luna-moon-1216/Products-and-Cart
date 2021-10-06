@@ -3,10 +3,11 @@ const { dbConfig } = require('./config.js');
 
 const pool = new Pool({
   user: 'ubuntu',
-  host: 'ec2-3-83-167-72.compute-1.amazonaws.com',
+  host: '3.83.167.72',
   // host: 'host.docker.internal',
   database: 'sdc_products',
   password: dbConfig.password,
+  max: 1000,
   port: 5432
 });
 
