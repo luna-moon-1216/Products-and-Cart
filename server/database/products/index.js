@@ -3,7 +3,8 @@ const { dbConfig } = require('./config.js');
 
 const pool = new Pool({
   user: 'ubuntu',
-  host: 'ec2-3-84-145-8.compute-1.amazonaws.com',
+  host: 'ec2-3-83-167-72.compute-1.amazonaws.com',
+  // host: 'host.docker.internal',
   database: 'sdc_products',
   password: dbConfig.password,
   port: 5432
@@ -17,3 +18,19 @@ module.exports = {
     pool.end()
   }
 };
+
+// pool.connect((err, client, done) => {
+//   if (err) {
+//     return console.error("Error acquiring client", err.stack);
+//   }
+//   client.query("SELECT NOW()", (err, result) => {
+//     done();
+//     if (err) {
+//       return console.error("Error executing query", err.stack);
+//     } else {
+//     console.log("CONNECTED: ", result.rows);
+//     }
+//   });
+// });
+
+// module.exports = pool;
