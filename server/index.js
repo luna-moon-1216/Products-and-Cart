@@ -8,8 +8,8 @@ var router = require("./routes.js");
 
 app.use(express.json()); //need to put before the router middleware to make it work
 app.use("/catwalk", router);
-app.get("/loaderio-d696ff881d540cdfc3b3a04350397744", (req, res) => {
-  res.send("loaderio-d696ff881d540cdfc3b3a04350397744");
+app.get("/loaderio-05425e451bc782628a76696ee8e789d9", (req, res) => {
+  res.send("loaderio-05425e451bc782628a76696ee8e789d9");
 });
 
 app.use(express.static(__dirname + "/../dist"));
