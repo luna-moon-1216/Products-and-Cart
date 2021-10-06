@@ -11,6 +11,13 @@ app.use("/catwalk", router);
 app.get("/loaderio-05425e451bc782628a76696ee8e789d9.html", (req, res) => {
   res.send("loaderio-05425e451bc782628a76696ee8e789d9");
 });
+app.get("/loaderio-05425e451bc782628a76696ee8e789d9.txt", (req, res) => {
+  res.send("loaderio-05425e451bc782628a76696ee8e789d9");
+});
+app.get("/loaderio-05425e451bc782628a76696ee8e789d9/", (req, res) => {
+  res.send("loaderio-05425e451bc782628a76696ee8e789d9");
+});
+
 
 app.use(express.static(__dirname + "/../dist"));
 
