@@ -8,14 +8,14 @@ var router = require("./routes.js");
 
 app.use(express.json()); //need to put before the router middleware to make it work
 app.use("/catwalk", router);
-app.get("/loaderio-a182a72bf27e0e7fa96c3c2734a4b213.html", (req, res) => {
-  res.send("loaderio-a182a72bf27e0e7fa96c3c2734a4b213");
+app.get("/loaderio-26aa0ab7a4edf88be7e39925e8929583.html", (req, res) => {
+  res.send("loaderio-26aa0ab7a4edf88be7e39925e8929583");
 });
-app.get("/loaderio-a182a72bf27e0e7fa96c3c2734a4b213.txt", (req, res) => {
-  res.send("loaderio-a182a72bf27e0e7fa96c3c2734a4b213");
+app.get("/loaderio-26aa0ab7a4edf88be7e39925e8929583.txt", (req, res) => {
+  res.send("loaderio-26aa0ab7a4edf88be7e39925e8929583");
 });
-app.get("/loaderio-a182a72bf27e0e7fa96c3c2734a4b213", (req, res) => {
-  res.send("loaderio-a182a72bf27e0e7fa96c3c2734a4b213");
+app.get("/loaderio-26aa0ab7a4edf88be7e39925e8929583/", (req, res) => {
+  res.send("loaderio-26aa0ab7a4edf88be7e39925e8929583");
 });
 
 
