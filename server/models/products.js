@@ -104,49 +104,18 @@ module.exports = {
       product_id: id,
       results: [],
     };
-    const queryStyle = `SELECT id AS style_id, name, original_price, sale_price, default_style AS "defautl?" FROM styles WHERE productId = ${id}`;
-    const queryPhoto = `SELECT styleId, thumbnail_url, url FROM photos WHERE styleId IN (SELECT id FROM styles WHERE productId = ${id})`;
-    const querySkus = `SELECT * FROM skus WHERE styleId IN (SELECT id FROM styles WHERE productId = ${id})`;
-    const styleInfo = db.query(queryStyle);
-    const photoInfo = db.query(queryPhoto);
-    const skusInfo = db.query(querySkus);
-
-    return Promise.all([styleInfo, photoInfo, skusInfo]).then((data) => {
-      const styleCollection = data[0].rows;
-      const photoCollection = data[1].rows;
-      const skusCollection = data[2].rows;
-      for(let i = 0; i < styleCollection.length; i++) {
-        const photos = [];
-        const skus = {};
-        for(let j = 0; j < photoCollection.length; j++) {
-          if(styleCollection[i].style_id === photoCollection[j].styleid) {
-            delete photoCollection[j].styleid;
-            photos.push(photoCollection[j]);
-          }
-        }
-
-        for(let k = 0; k < skusCollection.length; k++) {
-          if(styleCollection[i].style_id === skusCollection[k].styleid) {
-            skus[skusCollection[k].id] = {
-              quantity: skusCollection[k].quantity,
-              size: skusCollection[k].size
-            }
-          }
-        }
-        styleCollection[i].photos = photos;
-        styleCollection[i].skus = skus;
-        styles.results.push(styleCollection[i]);
-      }
+    const queryString = `SELECT id AS style_id, name, original_price, sale_price, default_style AS "defautl?",
+                         (SELECT array_agg(json_build_object('thumbnail_url', photos.thumbnail_url, 'url', photos.url)) AS photos FROM photos WHERE photos.styleId = styles.id),
+                         (SELECT json_object_agg(skus.id, json_build_object('quantity', skus.quantity, 'size', skus.size)) AS skus FROM skus WHERE skus.styleId = styles.id)
+                         FROM styles
+                         WHERE styles.productId =${id}`;
+    db.query(queryString).then((data) => {
+      styles.results = data.rows;
       return styles;
+      console.log(styles)
     })
-    .then((styles) => {
-      callback(null, styles);
-    })
-    .catch((err) => {
-      callback(err, null);
-    })
-
-
+    .then((styles) => callback(null, styles))
+    .catch((err) => callback(err, null));
   },
 
 

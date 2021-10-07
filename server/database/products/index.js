@@ -7,7 +7,6 @@ const pool = new Pool({
   // host: 'host.docker.internal',
   database: 'sdc_products',
   password: dbConfig.password,
-  max: 1000,
   port: 5432
 });
 
