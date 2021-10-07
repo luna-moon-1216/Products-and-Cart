@@ -8,15 +8,10 @@ var router = require("./routes.js");
 
 app.use(express.json()); //need to put before the router middleware to make it work
 app.use("/catwalk", router);
-app.get("/loaderio-eca04a34e999530e6afee5dcb1d94666.html", (req, res) => {
-  res.send("loaderio-eca04a34e999530e6afee5dcb1d94666");
+app.get("/loaderio-b255e3e53beb56789cf2dcb4d2cce136", (req, res) => {
+  res.send("loaderio-b255e3e53beb56789cf2dcb4d2cce136");
 });
-app.get("/loaderio-eca04a34e999530e6afee5dcb1d94666.txt", (req, res) => {
-  res.send("loaderio-eca04a34e999530e6afee5dcb1d94666");
-});
-app.get("/loaderio-eca04a34e999530e6afee5dcb1d94666/", (req, res) => {
-  res.send("loaderio-eca04a34e999530e6afee5dcb1d94666");
-});
+
 
 
 
