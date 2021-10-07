@@ -44,58 +44,109 @@ module.exports = {
       });
   },
 
+  // getStyles: function (param, callback) {
+  //   const id = Number(param.product_id);
+  //   const styles = {
+  //     product_id: id,
+  //     results: [],
+  //   };
+  //   const queryString = `SELECT id AS style_id, name, original_price, sale_price, default_style AS "defautl?" FROM styles WHERE productId = ${id}`;
+  //   const styleInfo = db.query(queryString);
+  //   const queryAddition = `SELECT photos.styleId, array_agg(thumbnail_url) AS thumbnail_url, array_agg(url) AS url, skus.id AS skusId, jsonb_object_agg(size, quantity) AS skus
+  //   FROM photos
+  //   INNER JOIN skus ON photos.styleId= skus.styleId
+  //   WHERE photos.styleId IN (SELECT id FROM styles WHERE productId = ${id})
+  //   GROUP BY photos.styleId, skusId`;
+  //   const additions = db.query(queryAddition);
+
+  //   return Promise.all([styleInfo, additions]).then((data) => {
+  //     const styleResult = data[0].rows;
+  //     const addtionResult = data[1].rows;
+  //     for(let i = 0; i < styleResult.length; i++) {
+  //       const photos = [];
+  //       const skus = {};
+  //       let check = 0;
+  //       for(let j = 0; j < addtionResult.length; j++) {
+  //         if(addtionResult[j].styleid === styleResult[i].style_id) {
+  //           check ++;
+  //           skus[addtionResult[j].skusid] = {
+  //             quantity: Object.values(addtionResult[j].skus)[0],
+  //             size: Object.keys(addtionResult[j].skus)[0]
+  //           }
+  //           if(check === 1) {
+  //             for(let x = 0; x < addtionResult[j].thumbnail_url.length; x++) {
+  //               const photo = {
+  //                 thumbnail_url: addtionResult[j].thumbnail_url[x],
+  //                 url: addtionResult[j].url[x]
+  //               }
+  //               photos.push(photo);
+  //             }
+  //           }
+  //         } else {
+  //           check = 0;
+  //         }
+  //       };
+  //       styleResult[i].photos = photos;
+  //       styleResult[i].skus = skus;
+  //       styles.results = styleResult;
+  //     }
+  //     return styles;
+  //   })
+  //   .then((styles) => {
+  //     callback(null, styles);
+  //   })
+  //   .catch((err) => callback(err, null));
+  // },
+
   getStyles: function (param, callback) {
     const id = Number(param.product_id);
     const styles = {
       product_id: id,
       results: [],
     };
-    const queryString = `SELECT id AS style_id, name, original_price, sale_price, default_style AS "defautl?" FROM styles WHERE productId = ${id}`;
-    const styleInfo = db.query(queryString);
-    const queryAddition = `SELECT photos.styleId, array_agg(thumbnail_url) AS thumbnail_url, array_agg(url) AS url, skus.id AS skusId, jsonb_object_agg(size, quantity) AS skus
-    FROM photos
-    INNER JOIN skus ON photos.styleId= skus.styleId
-    WHERE photos.styleId IN (SELECT id FROM styles WHERE productId = ${id})
-    GROUP BY photos.styleId, skusId`;
-    const additions = db.query(queryAddition);
+    const queryStyle = `SELECT id AS style_id, name, original_price, sale_price, default_style AS "defautl?" FROM styles WHERE productId = ${id}`;
+    const queryPhoto = `SELECT styleId, thumbnail_url, url FROM photos WHERE styleId IN (SELECT id FROM styles WHERE productId = ${id})`;
+    const querySkus = `SELECT * FROM skus WHERE styleId IN (SELECT id FROM styles WHERE productId = ${id})`;
+    const styleInfo = db.query(queryStyle);
+    const photoInfo = db.query(queryPhoto);
+    const skusInfo = db.query(querySkus);
 
-    return Promise.all([styleInfo, additions]).then((data) => {
-      const styleResult = data[0].rows;
-      const addtionResult = data[1].rows;
-      for(let i = 0; i < styleResult.length; i++) {
+    return Promise.all([styleInfo, photoInfo, skusInfo]).then((data) => {
+      const styleCollection = data[0].rows;
+      const photoCollection = data[1].rows;
+      const skusCollection = data[2].rows;
+      for(let i = 0; i < styleCollection.length; i++) {
         const photos = [];
         const skus = {};
-        let check = 0;
-        for(let j = 0; j < addtionResult.length; j++) {
-          if(addtionResult[j].styleid === styleResult[i].style_id) {
-            check ++;
-            skus[addtionResult[j].skusid] = {
-              quantity: Object.values(addtionResult[j].skus)[0],
-              size: Object.keys(addtionResult[j].skus)[0]
-            }
-            if(check === 1) {
-              for(let x = 0; x < addtionResult[j].thumbnail_url.length; x++) {
-                const photo = {
-                  thumbnail_url: addtionResult[j].thumbnail_url[x],
-                  url: addtionResult[j].url[x]
-                }
-                photos.push(photo);
-              }
-            }
-          } else {
-            check = 0;
+        for(let j = 0; j < photoCollection.length; j++) {
+          if(styleCollection[i].style_id === photoCollection[j].styleid) {
+            delete photoCollection[j].styleid;
+            photos.push(photoCollection[j]);
           }
-        };
-        styleResult[i].photos = photos;
-        styleResult[i].skus = skus;
-        styles.results = styleResult;
+        }
+
+        for(let k = 0; k < skusCollection.length; k++) {
+          if(styleCollection[i].style_id === skusCollection[k].styleid) {
+            skus[skusCollection[k].id] = {
+              quantity: skusCollection[k].quantity,
+              size: skusCollection[k].size
+            }
+          }
+        }
+        styleCollection[i].photos = photos;
+        styleCollection[i].skus = skus;
+        styles.results.push(styleCollection[i]);
       }
       return styles;
     })
     .then((styles) => {
       callback(null, styles);
     })
-    .catch((err) => callback(err, null));
+    .catch((err) => {
+      callback(err, null);
+    })
+
+
   },
 
 
