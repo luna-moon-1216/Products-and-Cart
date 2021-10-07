@@ -69,4 +69,32 @@ CREATE TABLE photos (
     FOREIGN KEY(styleId)
 	    REFERENCES styles(id)
 			ON DELETE CASCADE
-)
+);
+
+DROP TABLE IF EXISTS cart CASCADE;
+
+CREATE TABLE cart (
+  id SERIAL PRIMARY KEY,
+  user_session int,
+  product_id int,
+  active bool
+);
+
+DROP TABLE IF EXISTS cart_skus;
+
+CREATE TABLE cart_skus (
+  id SERIAL PRIMARY KEY,
+  sku_id int,
+  count int,
+  user_session int
+);
+
+\copy products FROM '/Users/luna/Downloads/product.csv' DELIMITER ',' csv header;
+\copy styles FROM '/Users/luna/Downloads/styles.csv' DELIMITER ',' null as 'null' csv header;
+\copy features FROM '/Users/luna/Downloads/features.csv' DELIMITER ',' csv header;
+\copy related FROM '/Users/luna/Downloads/related.csv' DELIMITER ',' csv header;
+\copy photos FROM '/Users/luna/Downloads/photos.csv' DELIMITER ',' csv header;
+\copy skus FROM '/Users/luna/Downloads/skus.csv' DELIMITER ',' csv header;
+\copy cart FROM '/Users/luna/Downloads/cart.csv' DELIMITER ',' csv header;
+
+

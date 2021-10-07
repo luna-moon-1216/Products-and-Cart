@@ -5,7 +5,7 @@ CREATE INDEX idx_feature_productId
    ON features(product_id);
 
 CREATE INDEX idx_styles
-   ON styles(id, productId);
+   ON styles(productId);
 
 CREATE INDEX idx_skus_styleId
    ON skus(styleId);
