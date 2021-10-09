@@ -3,7 +3,7 @@ const { dbConfig } = require('./config.js');
 
 const pool = new Pool({
   user: 'ubuntu',
-  host: '54.144.236.169',
+  host: '54.173.254.176',
   // host: 'host.docker.internal',
   database: 'sdc_products',
   password: dbConfig.password,
