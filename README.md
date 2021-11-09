@@ -49,7 +49,7 @@ Trello <img align="left" alt="Trello" width="30px" src="https://raw.githubuserco
 <br />
 
 ## System Architecture
-<img src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d716c442-80b5-43f0-98f2-cfb2976b62c7/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211026%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211026T031342Z&X-Amz-Expires=86400&X-Amz-Signature=ccfa4c238977ae03e22b3179128a786456a3a278bdd2d50fecf533a9fa454e86&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22' />
+<img src='https://github.com/luna-moon-1216/Products-and-Cart/blob/7f64bd58f370f289788e7fe7e6b71167b7f2a472/Architecture%20Diagram.png' />
 
 ## Database Schema
 <img src='https://github.com/luna-moon-1216/Products-and-Cart/blob/7f64bd58f370f289788e7fe7e6b71167b7f2a472/DB%20Schema.png'/>
